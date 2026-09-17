@@ -22,7 +22,7 @@ export function Hero() {
         </h1>
 
         <p className="text-[#AFAFAF] text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in delay-200" style={{ opacity: 0, animationFillMode: 'forwards' }}>
-          Música que vibra. Atitude que inspira.
+          Sonitus Vivus. Animus Audax.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up delay-300" style={{ opacity: 0, animationFillMode: 'forwards' }}>

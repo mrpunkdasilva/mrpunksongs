@@ -22,18 +22,32 @@ const protestGuerrilla = Protest_Guerrilla({
 export const metadata: Metadata = {
   title: "Mr Punk's Songs",
   description: "Site oficial de Mr Punk da Silva - Músicas, streaming e mais.",
-  keywords: ["Mr Punk da Silva", "música", "spotify", "tiktok", "streaming"],
+  keywords: ["Mr Punk da Silva", "música", "spotify", "tiktok", "streaming", "rock psicodélico"],
   openGraph: {
     title: "Mr Punk's Songs",
     description: "Site oficial de Mr Punk da Silva - Músicas, streaming e mais.",
     type: "website",
     locale: "pt_BR",
     siteName: "Mr Punk's Songs",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Mr Punk's Songs",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Mr Punk's Songs",
     description: "Site oficial de Mr Punk da Silva - Músicas, streaming e mais.",
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/og-image.png",
   },
 };
 

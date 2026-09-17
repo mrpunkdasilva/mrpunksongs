@@ -1,45 +1,43 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { MeshDistortMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
-function MouseSphere() {
+function FluidSphere() {
   const meshRef = useRef<THREE.Mesh>(null);
-  const { viewport } = useThree();
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const materialRef = useRef<any>(null);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMouse({
-        x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: -(e.clientY / window.innerHeight) * 2 + 1,
-      });
-    };
+  useFrame((state) => {
+    if (meshRef.current && materialRef.current) {
+      // Rotação suave constante
+      meshRef.current.rotation.x += 0.003;
+      meshRef.current.rotation.y += 0.005;
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+      // Distort fluido baseado no tempo
+      const time = state.clock.elapsedTime;
+      materialRef.current.distort = 0.4 + Math.sin(time * 1.5) * 0.2;
 
-  useFrame(() => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = mouse.y * 0.5;
-      meshRef.current.rotation.y = mouse.x * 0.5;
-      meshRef.current.position.x = mouse.x * 2;
-      meshRef.current.position.y = mouse.y * 2;
+      // Mudança de cor suave entre rosa e ciano
+      const hue = (Math.sin(time * 0.5) + 1) / 2;
+      const r = 0.988 - hue * 0.87;
+      const g = 0.365 + hue * 0.5;
+      const b = 0.498 + hue * 0.41;
+      materialRef.current.color.setRGB(r, g, b);
     }
   });
 
   return (
     <mesh ref={meshRef}>
-      <icosahedronGeometry args={[1.5, 4]} />
+      <sphereGeometry args={[2, 64, 64]} />
       <MeshDistortMaterial
+        ref={materialRef}
         color="#FC5D7F"
         wireframe
         transparent
-        opacity={0.3}
-        distort={0.3}
+        opacity={0.25}
+        distort={0.4}
         speed={2}
       />
     </mesh>
@@ -48,14 +46,14 @@ function MouseSphere() {
 
 export function Interactive3D() {
   return (
-    <div className="absolute inset-0 z-0 pointer-events-auto">
+    <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
       <Canvas
-        camera={{ position: [0, 0, 5], fov: 50 }}
+        camera={{ position: [0, 0, 6], fov: 45 }}
         style={{ background: "transparent" }}
         gl={{ alpha: true, antialias: true }}
       >
-        <ambientLight intensity={0.5} />
-        <MouseSphere />
+        <ambientLight intensity={0.3} />
+        <FluidSphere />
       </Canvas>
     </div>
   );

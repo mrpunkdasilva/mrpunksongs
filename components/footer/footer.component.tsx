@@ -11,7 +11,7 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
         <div className="flex flex-col">
           <h3 className="text-[#21DEEA] text-xl mb-5 uppercase tracking-widest font-[family-name:var(--font-protest-guerrilla)]">
-            MrPunkSongs
+            Mr Punk&apos;s Songs
           </h3>
           <p className="text-[#AFAFAF] leading-relaxed text-sm">
             Músicas, streaming e tudo sobre Mr Punk da Silva.
